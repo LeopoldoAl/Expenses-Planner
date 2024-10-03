@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 export default function BudgetForm() {
 
@@ -7,6 +7,10 @@ export default function BudgetForm() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBudget(e.target.valueAsNumber)
     }
+
+    const isValid = useMemo(() => {
+        return isNaN(budget) || budget <= 0
+    },[budget])
 
   return (
     <form className="space-y-5">
@@ -20,7 +24,7 @@ export default function BudgetForm() {
                 className="w-full bg-white border border-gray-200 p-2"
                 placeholder="Please, define your budget"
                 name="budget"
-                value={budget}
+                value={isNaN(budget)? '':budget}
                 onChange={handleChange}
             />
         </div>
@@ -29,7 +33,8 @@ export default function BudgetForm() {
         <input 
             type="submit" 
             value="Define Budget"
-            className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white font-black uppercase"
+            className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white font-black uppercase disabled:opacity-40"
+            disabled={isValid}
         />
 
     </form>
