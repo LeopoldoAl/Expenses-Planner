@@ -10,6 +10,9 @@ function App() {
   const { state } = useBudget()
   
   const isValidBudget = useMemo(() => state.budget > 0, [state.budget])
+  
+  useMemo(() => localStorage.setItem('expense', JSON.stringify(state.expenses)), [state.expenses])
+
   return (
     <>
         <header className="bg-blue-600 py-8 max-h-72">
