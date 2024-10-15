@@ -34,6 +34,7 @@ export default function BudgetForm() {
                 name="budget"
                 value={isNaN(budget)? '':budget}
                 onChange={handleChange}
+                min={'0'}
             />
         </div>
 
